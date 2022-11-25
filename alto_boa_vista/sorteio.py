@@ -22,4 +22,4 @@ for g in summary['groups']:
     print(g.teams[0].group.name)
     print(g.show_teams())
 
-print(f'roundss: {[r.name for r in rounds]}')
+print(f'rounds: {[r.name for r in rounds]}')
