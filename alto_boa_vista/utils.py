@@ -14,6 +14,7 @@ def calculate_rounds_and_games(n_teams: int,
                                games_knockout: int = 1,
                                games_final: int = 1) -> tuple[list[ndarray | list[float | int | Any]], int]:
     """
+    Calculate the total number of rounds and games of tournament. Also, it calculates the rounds by stage.
 
     :param n_teams: number of teams.
     :param n_groups: number of groups.
@@ -38,12 +39,25 @@ def calculate_rounds_and_games(n_teams: int,
 
 
 def teams_by_group_array(n_teams: int, n_groups: int) -> list[int]:
+    """
+    Creates an array with number of teams by group.
+
+    :param n_teams: number of teams
+    :param n_groups: number of groups
+    :return: number of teams by group
+    """
     n_teams_by_group = np.array([n_teams // n_groups] * n_groups)
     n_teams_by_group[:n_teams % n_groups] += 1
     return n_teams_by_group[::-1]
 
 
 def build_rounds(rounds: list[int]) -> list[Round]:
+    """
+    Builds the Round object for each round on the tournament.
+
+    :param rounds: names of rounds.
+    :return: Round list.
+    """
     result = []
     for r in range(rounds[0]):
         result.append(Round('round ' + str(r + 1)))
@@ -62,6 +76,13 @@ def build_rounds(rounds: list[int]) -> list[Round]:
 
 def build_groups(teams_names: list[str],
                  teams_by_group: list[int]) -> list[Group]:
+    """
+    Builds the groups of tournament.
+
+    :param teams_names: name of teams.
+    :param teams_by_group: number of teams by group.
+    :return: Group list.
+    """
     group_index = 1
     groups = {}
     list_of_groups = []
@@ -79,7 +100,13 @@ def build_groups(teams_names: list[str],
     return list_of_groups
 
 
-def build_teams_names(number_of_teams: int) -> list[str]:
+def generic_teams_names(number_of_teams: int) -> list[str]:
+    """
+    Creates the generic names of teams.
+
+    :param number_of_teams: number of teams.
+    :return: The generic names of teams.
+    """
     teams_names = ['Time ' + item for item in list(string.ascii_uppercase)[:number_of_teams]]
     if len(teams_names) < number_of_teams:
         rest_teams = ['Time ' + str(item) for item in range(number_of_teams - len(teams_names))]
