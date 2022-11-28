@@ -1,54 +1,62 @@
 import math
 from typing import Any
 import string
+from pydantic.dataclasses import dataclass
 
 import numpy as np
 from numpy import ndarray
 from all_objects import *
 
-
-def calculate_rounds_and_games(n_teams: int,
-                               n_groups: int,
-                               n_star: int,
-                               same_teams: int = 1,
-                               games_knockout: int = 1,
-                               games_final: int = 1) -> tuple[list[ndarray | list[float | int | Any]], int]:
-    """
-    Calculate the total number of rounds and games of tournament. Also, it calculates the rounds by stage.
-
-    :param n_teams: number of teams.
-    :param n_groups: number of groups.
-    :param n_star: number of teams that advance to knock-out stage.
-    :param same_teams: number of times that teams play with each opponent in group stage.
-    :param games_knockout: number of times that teams play with opponent in each knock-out stage.
-    :param games_final: number of final games.
-    :return: number_of_rounds: the number of rounds in the tournament.
-    :return: rounds_by_stage: the number of rounds by stage (group, knock-out).
-    :return: number_of_games: the total number of games in tournament.
-    """
-    tbg = teams_by_group_array(n_teams, n_groups)
-    rounds_group_stage = [number - 1 + number % 2 for number in tbg]
-    rounds_knockout_stage = math.log(n_star, 2)
-    rounds_by_stage = [max(rounds_group_stage) * same_teams, rounds_knockout_stage]
-    number_of_rounds = np.sum(rounds_by_stage)
-
-    games_group_stage = [(number ** 2 - number) / 2 for number in tbg]
-    gg = np.sum(games_group_stage) * same_teams
-    number_of_games = gg + (rounds_knockout_stage - 1) * games_knockout + games_final
-    return [number_of_rounds, rounds_by_stage], number_of_games
+# TODO (willian): Make class Utils a class named Tournament.
 
 
-def teams_by_group_array(n_teams: int, n_groups: int) -> list[int]:
-    """
-    Creates an array with number of teams by group.
+@dataclass
+class Utils:
 
-    :param n_teams: number of teams
-    :param n_groups: number of groups
-    :return: number of teams by group
-    """
-    n_teams_by_group = np.array([n_teams // n_groups] * n_groups)
-    n_teams_by_group[:n_teams % n_groups] += 1
-    return n_teams_by_group[::-1]
+    def calculate_rounds_and_games(self,
+                                   n_teams: int,
+                                   n_groups: int,
+                                   n_star: int,
+                                   same_teams: int = 1,
+                                   games_knockout: int = 1,
+                                   games_final: int = 1) -> tuple[list[ndarray | list[float | int | Any]], int]:
+        """
+        Calculate the total number of rounds and games of tournament. Also, it calculates the rounds by stage.
+
+        :param n_teams: number of teams.
+        :param n_groups: number of groups.
+        :param n_star: number of teams that advance to knock-out stage.
+        :param same_teams: number of times that teams play with each opponent in group stage.
+        :param games_knockout: number of times that teams play with opponent in each knock-out stage.
+        :param games_final: number of final games.
+        :return: number_of_rounds: the number of rounds in the tournament.
+        :return: rounds_by_stage: the number of rounds by stage (group, knock-out).
+        :return: number_of_games: the total number of games in tournament.
+        """
+        tbg = self.teams_by_group_array(n_teams, n_groups)
+        rounds_group_stage = [number - 1 + number % 2 for number in tbg]
+        rounds_knockout_stage = math.log(n_star, 2)
+        rounds_by_stage = [max(rounds_group_stage) * same_teams, rounds_knockout_stage]
+        number_of_rounds = np.sum(rounds_by_stage)
+
+        games_group_stage = [(number ** 2 - number) / 2 for number in tbg]
+        gg = np.sum(games_group_stage) * same_teams
+        number_of_games = gg + (rounds_knockout_stage - 1) * games_knockout + games_final
+        return [number_of_rounds, rounds_by_stage], number_of_games
+
+    @staticmethod
+    def teams_by_group_array(n_teams: int, n_groups: int) -> list[int]:
+        """
+        Creates an array with number of teams by group.
+
+        :param n_teams: number of teams
+        :param n_groups: number of groups
+        :return: number of teams by group
+        """
+
+        n_teams_by_group = np.array([n_teams // n_groups] * n_groups)
+        n_teams_by_group[:n_teams % n_groups] += 1
+        return n_teams_by_group[::-1]
 
 
 def build_rounds(rounds: list[int]) -> list[Round]:
