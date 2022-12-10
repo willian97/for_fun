@@ -1,6 +1,6 @@
 from utils import *
 from all_objects import *
-
+# TODO (willian): create the first release
 
 number_of_teams = 8
 number_of_groups = 2
