@@ -24,7 +24,7 @@ for round_key in f.keys():
                     teams[team].append(player)
         if "CA" in f[round_key][team].keys():
             for player in f[round_key][team]["CA"].keys():
-                if player not in scorers.keys():
+                if player not in yellow_cards.keys():
                     yellow_cards[player] = {}
                     yellow_cards[player]["CA"] = f[round_key][team]["CA"][player]
                     yellow_cards[player]["Time"] = team
