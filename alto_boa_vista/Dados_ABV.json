@@ -22,5 +22,41 @@
 			  			 },
 			  "Bom Jardim": {}
 
+			  },
+	"Rodada 2": {
+			  "Pedra Azul": { "Gols": {"Ryan":  2},
+							 "CA": {"Adrian": 1,
+								    "Willian": 1}
+			  				},
+			  "Juventude": { "Gols": {"Vanderland do Bonfim": 3}
+			  				},
+			  "Ouro Verde": {"Gols": {"Hermilio": 1},
+				  			 "CA": {"Kaique":  1}
+			  				},
+			  "União Igarapé": {},
+			  "Redbull": {"Gols":{"Wesley Estadeu Rezende": 2,
+			  					  "Phablo Henrique":  1,
+							  	  "Thayron": 1,
+							  	  "João Ricardo":  1,
+			  					  "Matheus":  1},
+			  			  "CA": {"Phablo Henrique": 1,
+						         "João Ricardo": 1,
+						  		 "Wemerson":  1}
+			  			 },
+			  "Bom Jardim": {"Gols":  {"Pedro":  1},
+			  				 "CA": {"Delvani": 1}
+			  }
+
+			  },
+		"Rodada 3": {
+			  "Pedra Azul": {},
+			  "Juventude": {},
+			  "Ouro Verde": {},
+			  "União Igarapé": {},
+			  "Redbull": {"Gols":{"Wesley Estadeu Rezende": 2,
+			  					  "Luiz Alberto":  3}
+			  			 },
+			  "Bom Jardim": {}
+
 			  }
 }
